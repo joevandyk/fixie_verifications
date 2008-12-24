@@ -1,0 +1,26 @@
+FixieVerifications
+==================
+
+Easily add emailed verification to your application.
+
+
+Example
+=======
+
+class User < ActiveRecord::Base
+  has_verification_number 
+end
+
+u = User.create
+
+# An email with a random code is sent to joe@fixieconsulting.com.
+# Say the code is "12345"
+u.needs_verification!("joe@fixieconsulting.com")  
+
+# Either of these work
+Verification.verify! "12345"
+u.verify! "12345"
+
+u.verified? # returns true
+
+Copyright (c) 2008 Joe Van Dyk, Fixie, released under the MIT license
