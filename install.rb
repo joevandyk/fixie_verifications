@@ -1,1 +1,1 @@
-# Install hook code here
+`script/generate fixie_verifications install`

@@ -29,22 +29,23 @@ module Fixie
 
     class Verification < ActiveRecord::Base
       set_table_name :fixie_verifications
+
       belongs_to :relation, :polymorphic => true
+
       named_scope :verified, :conditions => "verified_at is not null"
+
       before_create :generate_verification_code
+      after_create  :send_email
+
       validates_presence_of :relation
       validates_presence_of :email
-      after_create :send_email
+      validates_presence_of :code
 
       def self.verify! code
         if verification = Verification.find(:first, :conditions => {:code => code})
-          verification.verified!
+          self.verified_at = Time.zone.now
+          self.save!
         end
-      end
-
-      def verified!
-        self.verified_at = Time.zone.now
-        self.save!
       end
 
       private
