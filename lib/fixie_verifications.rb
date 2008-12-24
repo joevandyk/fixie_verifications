@@ -34,7 +34,7 @@ module Fixie
 
       named_scope :verified, :conditions => "verified_at is not null"
 
-      before_create :generate_verification_code
+      before_validation_on_create :generate_verification_code
       after_create  :send_email
 
       validates_presence_of :relation
@@ -43,8 +43,8 @@ module Fixie
 
       def self.verify! code
         if verification = Verification.find(:first, :conditions => {:code => code})
-          self.verified_at = Time.zone.now
-          self.save!
+          verification.verified_at = Time.zone.now
+          verification.save!
         end
       end
 
