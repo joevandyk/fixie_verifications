@@ -50,7 +50,7 @@ module Fixie
       private
 
       def generate_verification_code
-        self.code = Digest::MD5.hexdigest(self.relation.to_s)
+        self.code = SecureRandom.hex(15)
       end
 
       def send_email
