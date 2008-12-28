@@ -1,7 +1,8 @@
 FixieVerifications
 ==================
 
-Easily add emailed verification to your application.
+Easily add emailed verification to your application.  
+Needs Rails 2.2 (only for ActiveSupport::SecureRandom).
 
 
 Example
